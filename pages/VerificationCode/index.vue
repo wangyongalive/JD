@@ -3,7 +3,7 @@
         <view class="box">
             <img src="../../static/jd-icon.png" />
             <view class="">请输入验证码</view>
-            <view><text class="text-info">已发送至</text><text>+86 138****6251</text></view>
+            <view><text class="text-info">已发送至</text><text>+86&nbsp;&nbsp;&nbsp;138****6251</text></view>
             <u-code-input @change="change" @finish="finish"></u-code-input>
             <u-button shape="circle" color="linear-gradient(to right, #f10000, #ff4f18)" text="登录"></u-button>
         </view>
@@ -49,7 +49,7 @@ page {
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-
+        padding-top: 50PX;
         img {
             width: 100PX;
             height: 100PX;
