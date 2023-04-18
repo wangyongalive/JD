@@ -6,6 +6,12 @@
 				"navigationBarTitleText": ""
 			}
 		},
+		{
+			"path": "pages/VerificationCode/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
 	    {
             "path" : "pages/home/index",
             "style" :                                                                                    
