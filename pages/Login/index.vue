@@ -22,8 +22,8 @@
 		</view>
 		<view class="rule-container">
 			<u-checkbox-group v-model="checkboxValue1" placement="column">
-				<u-checkbox shape="circle" :customStyle="{ marginBottom: '8px' }" v-for="(item, index) in checkboxList1"
-					:key="index" :label="item.name" :name="item.name">
+				<u-checkbox size="14" shape="circle" :customStyle="{ marginBottom: '8px' }"
+					v-for="(item, index) in checkboxList1" :key="index" :label="item.name" :name="item.name">
 				</u-checkbox>
 			</u-checkbox-group>
 			<view>
@@ -167,6 +167,7 @@ $padding: 40rpx;
 	.rule-container {
 		padding-top: $padding;
 		display: flex;
+		align-items: baseline;
 	}
 }
 </style>
@@ -174,5 +175,10 @@ $padding: 40rpx;
 .resetInput.u-input {
 	margin-top: 10px;
 	background-color: rgb(245, 247, 250);
+}
+
+.rule-container .u-checkbox__icon-wrap {
+	width: 14px !important;
+	height: 14px !important;
 }
 </style>
