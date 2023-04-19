@@ -24,6 +24,7 @@ http.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    console.log("errror!!!!!!!!");
     return Promise.resolve(error);
   }
 );

@@ -2,9 +2,9 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "https://pay-dev.20a.top/index.php",
+        target: "https://bsoxc9.laf.run/",
         changeOrigin: true,
-        // rewrite: (path) => path.replace("/api/", "/"),
+        pathRewrite: { "^/api": "" },
       },
     },
   },

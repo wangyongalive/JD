@@ -18,11 +18,10 @@
 			<u--input placeholder="国家/地区" shape="circle" border="surround" disabled>
 				<u--text text="+86" slot="suffix" margin="0 3px 0 0" type="tips"></u--text>
 			</u--input>
-			<u--input class="resetInput" placeholder="请输入手机号码" shape="circle" border="surround" v-model="value"
-				@change="change"></u--input>
+			<u--input class="resetInput" placeholder="请输入手机号码" shape="circle" border="surround" v-model="phone"></u--input>
 		</view>
 		<view class="rule-container">
-			<u-checkbox-group v-model="checkboxValue1" placement="column" @change="checkboxChange">
+			<u-checkbox-group v-model="checkboxValue1" placement="column">
 				<u-checkbox shape="circle" :customStyle="{ marginBottom: '8px' }" v-for="(item, index) in checkboxList1"
 					:key="index" :label="item.name" :name="item.name">
 				</u-checkbox>
@@ -38,16 +37,18 @@
 				:disabled="!checkboxValue1.length" @click="handleCapture"></u-button>
 		</view>
 
+		<u-toast ref="uToast"></u-toast>
 	</view>
 </template>
 
 <script>
-import { textFn } from '../../api/index.js'
+import { sendSms } from '../../api/index.js'
+import { isValidPhoneNumber } from '../../utils/index'
 export default {
 	data() {
 		return {
 			loading: false,
-			value: '',
+			phone: '',
 			checkboxValue1: [],
 			// 基本案列数据
 			checkboxList1: [{
@@ -64,17 +65,31 @@ export default {
 		setTimeout(() => {
 			this.loading = false
 		}, 2000)
-		textFn()
 	},
 	methods: {
-		change(e) {
-			console.log('change', e);
+		async handleCapture() {
+			if (!isValidPhoneNumber(this.phone)) {
+				this.$refs.uToast.show({
+					type: 'default',
+					title: '默认主题',
+					message: "手机号格式错误"
+				})
+				return;
+			}
+			try {
+				const { data } = await sendSms({
+					phone: this.phone
+				})
+				console.log('11111')
+				uni.navigateTo({
+					url: `/pages/VerificationCode/index?code=${data}`
+				})
+			} catch (err) {
+				console.log(err, 111)
+			}
+
 		},
-		handleCapture() {
-			uni.navigateTo({
-				url: `/pages/VerificationCode/index?code=${1}`
-			})
-		}
+
 	}
 }
 </script>
