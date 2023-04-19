@@ -168,6 +168,7 @@ $padding: 40rpx;
 		padding-top: $padding;
 		display: flex;
 		align-items: baseline;
+		font-size: 14PX;
 	}
 }
 </style>
