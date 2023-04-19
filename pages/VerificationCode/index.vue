@@ -20,7 +20,7 @@
 <script>
 import { geTel } from "../../utils/index";
 import { sendSms, login } from "../../api/index.js";
-const defaultTime = 60
+let defaultTime = 60
 export default {
     data() {
         return {
