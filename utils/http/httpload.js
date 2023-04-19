@@ -14,7 +14,7 @@ http.interceptors.request.use(
     return config;
   },
   (error) => {
-    return Promise.resolve(error);
+    return Promise.reject(error);
   }
 );
 
@@ -24,8 +24,7 @@ http.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log("errror!!!!!!!!");
-    return Promise.resolve(error);
+    return Promise.reject(error);
   }
 );
 export default http;

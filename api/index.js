@@ -1,7 +1,7 @@
 import request from "@/utils/http/httpload.js";
 
 export const sendSms = (params) => {
-  return request.get("/api/send_sms1", {
+  return request.get("/api/send_sms", {
     params,
   });
 };

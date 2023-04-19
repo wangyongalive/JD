@@ -34,10 +34,11 @@
 		</view>
 		<view style="padding: 20px;">
 			<u-button type="error" text="获取验证码" shape="circle" color="linear-gradient(to right, #f10000, #ff4f18)"
-				:disabled="!checkboxValue1.length" @click="handleCapture"></u-button>
+				:disabled="!checkboxValue1.length || show" @click="handleCapture"></u-button>
 		</view>
 
 		<u-toast ref="uToast"></u-toast>
+		<u-loading-icon :show="show"></u-loading-icon>
 	</view>
 </template>
 
@@ -47,7 +48,8 @@ import { isValidPhoneNumber } from '../../utils/index'
 export default {
 	data() {
 		return {
-			loading: false,
+			loading: true,
+			show: false,
 			phone: '',
 			checkboxValue1: [],
 			// 基本案列数据
@@ -71,21 +73,40 @@ export default {
 			if (!isValidPhoneNumber(this.phone)) {
 				this.$refs.uToast.show({
 					type: 'default',
-					title: '默认主题',
-					message: "手机号格式错误"
+					message: "手机号格式错误",
+					position: 'top'
 				})
 				return;
 			}
 			try {
+				this.show = true
 				const { data } = await sendSms({
 					phone: this.phone
 				})
-				console.log('11111')
-				uni.navigateTo({
-					url: `/pages/VerificationCode/index?code=${data}`
+				const params = {
+					phone: this.phone,
+					captcha: data
+				}
+
+				this.$refs.uToast.show({
+					type: 'default',
+					message: "短信发送成功",
+					position: 'top'
 				})
+
+				uni.navigateTo({
+					url: `/pages/VerificationCode/index?params=${JSON.stringify(params)}`
+				})
+
 			} catch (err) {
-				console.log(err, 111)
+				const { data } = err;
+				this.$refs.uToast.show({
+					type: 'error',
+					message: data,
+					position: 'top'
+				})
+			} finally {
+				this.show = false
 			}
 
 		},
@@ -108,6 +129,8 @@ $padding: 40rpx;
 		z-index: 100;
 		width: 100%;
 		height: 100%;
+		left: 0;
+		top: 0;
 	}
 
 	.log2 {
